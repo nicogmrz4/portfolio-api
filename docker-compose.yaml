@@ -14,7 +14,7 @@ services:
   db:
     image: mysql
     environment:
-      - MYSQL_DATABASE=restaurant
+      - MYSQL_DATABASE=portfolio
       - MYSQL_ROOT_PASSWORD=123
     volumes:
       - portfolio_db:/var/lib/mysql
