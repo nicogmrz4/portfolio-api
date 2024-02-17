@@ -26,6 +26,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             requirements: ['id' => '\d+'],
             controller: SKillImageController::class,
             deserialize: false,
+            normalizationContext: ['groups' => ['skill:read']],
             inputFormats: ['multipart' => ['multipart/form-data']],
             openapi: new Model\Operation(
                 requestBody: new Model\RequestBody(

@@ -28,6 +28,7 @@ use Symfony\Component\HttpFoundation\File\File;
             requirements: ['id' => '\d+'],
             controller: ProjectImageController::class,
             deserialize: false,
+            normalizationContext: ['groups' => ['project:read']],
             inputFormats: ['multipart' => ['multipart/form-data']],
             openapi: new Model\Operation(
                 requestBody: new Model\RequestBody(
