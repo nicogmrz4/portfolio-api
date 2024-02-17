@@ -19,6 +19,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: SkillRepository::class)]
 #[ApiResource(
+    normalizationContext: ['groups' => ['skill:read']],
+    denormalizationContext: ['groups' => ['skill:write']],
     operations: [
         new Get(),
         new GetCollection(),
@@ -28,7 +30,6 @@ use Symfony\Component\Validator\Constraints as Assert;
             requirements: ['id' => '\d+'],
             controller: SKillImageController::class,
             deserialize: false,
-            normalizationContext: ['groups' => ['skill:read']],
             inputFormats: ['multipart' => ['multipart/form-data']],
             openapi: new Model\Operation(
                 requestBody: new Model\RequestBody(
@@ -60,11 +61,11 @@ class Skill
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['skill:read'])]
+    #[Groups(['skill:read', 'skill:write'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['skill:read'])]
+    #[Groups(['skill:read', 'skill:write'])]
     private ?string $description = null;
 
     #[Vich\UploadableField(mapping: 'image', fileNameProperty: 'icon')]

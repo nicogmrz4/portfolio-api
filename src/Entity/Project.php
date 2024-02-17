@@ -19,6 +19,8 @@ use Symfony\Component\HttpFoundation\File\File;
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 #[ApiResource(
+    normalizationContext: ['groups' => ['project:read']],
+    denormalizationContext: ['groups' => ['project:write']],
     operations: [
         new Get(),
         new GetCollection(),
@@ -28,7 +30,6 @@ use Symfony\Component\HttpFoundation\File\File;
             requirements: ['id' => '\d+'],
             controller: ProjectImageController::class,
             deserialize: false,
-            normalizationContext: ['groups' => ['project:read']],
             inputFormats: ['multipart' => ['multipart/form-data']],
             openapi: new Model\Operation(
                 requestBody: new Model\RequestBody(
@@ -60,11 +61,11 @@ class Project
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['project:read'])]
+    #[Groups(['project:read', 'project:write'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['project:read'])]
+    #[Groups(['project:read', 'project:write'])]
     private ?string $description = null;
 
     #[Vich\UploadableField(mapping: 'image', fileNameProperty: 'preview')]
