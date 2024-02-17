@@ -61,12 +61,15 @@ class Skill
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[Vich\UploadableField(mapping: 'image', fileNameProperty: 'preview')]
+    #[Vich\UploadableField(mapping: 'image', fileNameProperty: 'images')]
     #[Assert\File(extensions: ['jpg', 'jpeg', 'png', 'bmp'])]
     private ?File $file = null;
     
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
 
 
     public function getId(): ?int
@@ -112,5 +115,17 @@ class Skill
     public function getFile(): ?File
     {
         return $this->file;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
     }
 }

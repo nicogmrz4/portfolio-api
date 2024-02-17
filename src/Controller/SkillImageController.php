@@ -3,21 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Skill;
+use App\Services\FileUploadServices;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class SkillImageController extends AbstractController
 {
-    public function __invoke(Request $request, Skill $skill)
+    public function __invoke(Request $request, Skill $skill, FileUploadServices $fileUploadServices)
     {
-        $uploadedFile = $request->files->get('file');
-        if (!$uploadedFile) {
-            throw new BadRequestHttpException('"file" is required');
-        }
-
-        $skill->setFile($uploadedFile);
-
-        return $skill;
+        return  $fileUploadServices->handleFileUpload($request, $skill); 
     }
 }
