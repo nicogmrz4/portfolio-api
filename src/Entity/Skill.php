@@ -15,6 +15,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: SkillRepository::class)]
 #[ApiResource(
     operations: [
