@@ -67,7 +67,7 @@ class Skill
     #[Groups(['skill:read'])]
     private ?string $description = null;
 
-    #[Vich\UploadableField(mapping: 'image', fileNameProperty: 'images')]
+    #[Vich\UploadableField(mapping: 'image', fileNameProperty: 'icon')]
     #[Assert\File(extensions: ['jpg', 'jpeg', 'png', 'bmp'])]
     private ?File $file = null;
     
@@ -76,6 +76,7 @@ class Skill
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['skill:read'])]
+    private ?string $icon = null;
 
 
     public function getId(): ?int
@@ -123,14 +124,14 @@ class Skill
         return $this->file;
     }
 
-    public function getImage(): ?string
+    public function getIcon(): ?string
     {
-        return $this->image;
+        return $this->icon;
     }
 
-    public function setImage(?string $image): static
+    public function setIcon(?string $icon): static
     {
-        $this->image = $image;
+        $this->icon = $icon;
 
         return $this;
     }
