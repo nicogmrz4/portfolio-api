@@ -56,12 +56,15 @@ class Project
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['project:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['project:read'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['project:read'])]
     private ?string $description = null;
 
     #[Vich\UploadableField(mapping: 'image', fileNameProperty: 'preview')]
@@ -69,6 +72,7 @@ class Project
     private ?File $file = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['project:read'])]
     private ?string $preview = null;
 
     #[ORM\Column(nullable: true)]

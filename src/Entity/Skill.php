@@ -55,12 +55,15 @@ class Skill
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['skill:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['skill:read'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['skill:read'])]
     private ?string $description = null;
 
     #[Vich\UploadableField(mapping: 'image', fileNameProperty: 'images')]
@@ -71,7 +74,7 @@ class Skill
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image = null;
+    #[Groups(['skill:read'])]
 
 
     public function getId(): ?int
