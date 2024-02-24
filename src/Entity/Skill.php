@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model;
 use App\Controller\SkillImageController;
@@ -25,6 +26,9 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Get(),
         new GetCollection(),
         new Post(),
+        new Patch(
+            denormalizationContext: ['groups' => ['skill:edit']]
+        ),
         new Post(
             uriTemplate: '/skills/{id}/image',
             requirements: ['id' => '\d+'],
@@ -61,11 +65,11 @@ class Skill
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['skill:read', 'skill:write'])]
+    #[Groups(['skill:read', 'skill:write', 'skill:edit'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['skill:read', 'skill:write'])]
+    #[Groups(['skill:read', 'skill:write', 'skill:edit'])]
     private ?string $description = null;
 
     #[Vich\UploadableField(mapping: 'image', fileNameProperty: 'icon')]

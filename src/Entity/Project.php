@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model;
 use App\Controller\ProjectImageController;
@@ -25,6 +26,9 @@ use Symfony\Component\HttpFoundation\File\File;
         new Get(),
         new GetCollection(),
         new Post(),
+        new Patch(
+            denormalizationContext: ['groups' => ['project:edit']]
+        ),
         new Post(
             uriTemplate: '/projects/{id}/image',
             requirements: ['id' => '\d+'],
@@ -61,11 +65,11 @@ class Project
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['project:read', 'project:write'])]
+    #[Groups(['project:read', 'project:write', 'project:edit'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['project:read', 'project:write'])]
+    #[Groups(['project:read', 'project:write', 'project:edit'])]
     private ?string $description = null;
 
     #[Vich\UploadableField(mapping: 'image', fileNameProperty: 'preview')]
