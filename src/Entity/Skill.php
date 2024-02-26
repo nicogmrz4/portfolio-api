@@ -69,7 +69,7 @@ class Skill
     private ?string $name = null;
 
     #[Vich\UploadableField(mapping: 'image', fileNameProperty: 'icon')]
-    #[Assert\File(extensions: ['jpg', 'jpeg', 'png', 'bmp'])]
+    #[Assert\File(extensions: ['jpg', 'jpeg', 'png', 'bmp', 'svg'])]
     private ?File $file = null;
     
     #[ORM\Column(nullable: true)]
