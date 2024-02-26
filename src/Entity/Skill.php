@@ -68,10 +68,6 @@ class Skill
     #[Groups(['skill:read', 'skill:write', 'skill:edit'])]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
-    #[Groups(['skill:read', 'skill:write', 'skill:edit'])]
-    private ?string $description = null;
-
     #[Vich\UploadableField(mapping: 'image', fileNameProperty: 'icon')]
     #[Assert\File(extensions: ['jpg', 'jpeg', 'png', 'bmp'])]
     private ?File $file = null;
@@ -97,18 +93,6 @@ class Skill
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): static
-    {
-        $this->description = $description;
 
         return $this;
     }
