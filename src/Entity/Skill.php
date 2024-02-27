@@ -79,6 +79,10 @@ class Skill
     #[Groups(['skill:read'])]
     private ?string $icon = null;
 
+    #[ORM\Column]
+    #[Groups(['skill:read', 'skill:write', 'skill:edit'])]
+    private ?int $iconSize = null;
+
 
     public function getId(): ?int
     {
@@ -121,6 +125,18 @@ class Skill
     public function setIcon(?string $icon): static
     {
         $this->icon = $icon;
+
+        return $this;
+    }
+
+    public function getIconSize(): ?int
+    {
+        return $this->iconSize;
+    }
+
+    public function setIconSize(int $iconSize): static
+    {
+        $this->iconSize = $iconSize;
 
         return $this;
     }
