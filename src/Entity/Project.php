@@ -11,6 +11,8 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model;
 use App\Controller\ProjectImageController;
 use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -83,6 +85,15 @@ class Project
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\ManyToMany(targetEntity: ProjectTag::class, inversedBy: 'projects')]
+    #[Groups(['project:read', 'project:write', 'project:edit'])]
+    private Collection $tags;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -138,5 +149,29 @@ class Project
     public function getFile(): ?File
     {
         return $this->file;
+    }
+
+    /**
+     * @return Collection<int, ProjectTag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(ProjectTag $tag): static
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(ProjectTag $tag): static
+    {
+        $this->tags->removeElement($tag);
+
+        return $this;
     }
 }
