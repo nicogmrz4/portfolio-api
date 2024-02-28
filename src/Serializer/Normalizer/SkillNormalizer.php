@@ -13,7 +13,7 @@ class SkillNormalizer implements NormalizerInterface
 
     public function __construct(
         private StorageInterface $storage,
-        #[Autowire(service: 'serializer.normalizer.object')]
+        #[Autowire(service: 'api_platform.jsonld.normalizer.item')]
         private readonly NormalizerInterface $normalizer,
     ) {}
 
