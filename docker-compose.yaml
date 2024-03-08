@@ -12,14 +12,14 @@ services:
       - db
 
   db:
-    image: mysql
+    image: postgres:16
     environment:
-      - MYSQL_DATABASE=portfolio
-      - MYSQL_ROOT_PASSWORD=123
+      - POSTGRES_DB=portfolio
+      - POSTGRES_PASSWORD=123
     volumes:
-      - portfolio_db:/var/lib/mysql
+      - portfolio_db:/var/lib/postgresql/data
     ports:
-      - 3006
+      - 5432:5432
 
 volumes:
   portfolio_db:
