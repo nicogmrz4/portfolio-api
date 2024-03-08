@@ -26,3 +26,5 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 COPY apache2.conf /etc/apache2/sites-available/000-default.conf
 
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash && apt install symfony-cli -y
+
+CMD [ "symfony", "console", "d:m:m" ]
