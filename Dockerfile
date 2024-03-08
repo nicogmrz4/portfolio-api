@@ -16,6 +16,8 @@ COPY . /var/www/html
 
 WORKDIR /var/www/html
 
+RUN chmod +x start.sh
+
 RUN composer install
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
