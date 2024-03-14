@@ -7,7 +7,7 @@ php bin/console doctrine:database:create -n --if-not-exists
 # DB MIGRATIONS
 
 php bin/console doctrine:migrations:diff -n
-php bin/console doctrine:migrations:run -n
+php bin/console doctrine:migrations:migrate -n
 
 # RUN APACHE
 
