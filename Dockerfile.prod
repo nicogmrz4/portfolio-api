@@ -24,6 +24,11 @@ COPY apache2.conf /etc/apache2/sites-available/000-default.conf
 
 RUN php bin/console lexik:jwt:generate-keypair -n --overwrite
 
+# MAKING NESESSARY DIRS AND ASSIGNING PERMISSIONS TO HIM
+
+RUN mkdir -p var/log && \
+    mkdir -p var/cache
+
 RUN chmod +x ./start.sh
 RUN chmod -R +777 . 
 
