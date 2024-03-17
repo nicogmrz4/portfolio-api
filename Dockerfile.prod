@@ -30,6 +30,7 @@ RUN mkdir -p var/log && \
     mkdir -p var/cache
 
 RUN chmod +x ./start.sh
-RUN chmod -R +777 . 
+RUN chown -R www-data:www-data .
+RUN chmod -R +775 . 
 
 CMD ["./start.sh"]
