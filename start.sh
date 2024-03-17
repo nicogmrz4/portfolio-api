@@ -11,4 +11,6 @@ php bin/console doctrine:migrations:migrate -n
 
 # RUN APACHE
 
+php bin/console security:hash-password -n $ADMIN_PASSWORD 
+
 apache2-foreground
