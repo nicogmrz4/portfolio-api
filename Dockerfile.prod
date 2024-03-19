@@ -14,6 +14,10 @@ WORKDIR /var/www/html
 RUN composer install
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+ENV APP_ENV prod
+ENV APACHE_RUN_USER app
+ENV APACHE_RUN_GROUP app
+RUN adduser -q ${APACHE_RUN_USER}
 
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
@@ -29,8 +33,9 @@ RUN php bin/console lexik:jwt:generate-keypair -n --overwrite
 RUN mkdir -p var/log && \
     mkdir -p var/cache
 
+# REQUIRED PERMISSIONS
 RUN chmod +x ./start.sh
-RUN chown -R www-data:www-data .
-RUN chmod -R +775 . 
+RUN chown -R ${APACHE_RUN_USER}:${APACHE_RUN_GROUP} public/ && \ 
+    chown -R ${APACHE_RUN_USER}:${APACHE_RUN_GROUP} var/
 
 CMD ["./start.sh"]
